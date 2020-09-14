@@ -23,8 +23,10 @@ def create_todo():
     print(json_data['name'])
     print(json_data['age'])
     #todo = request.args.get('todo')
-    #token_v2 = os.environ.get("TOKEN")
-    #url = os.environ.get("URL")
+    token_v2 = os.environ.get("TOKEN")
+    url = os.environ.get("URL")
+    print(token_v2)
+    print(url)
     #createNotionTask(token_v2, url, todo)
     return f'Juri to PRINTS'
 
