@@ -19,8 +19,7 @@ def createNotionTask(token, collectionURL, content):
 @app.route('/create_todo', methods=['POST'])
 def create_todo():
     json_data = request.get_json()
-    print(json_data['name'])
-    print(json_data['age'])
+    print(json_data)
     #todo = request.args.get('todo')
     #token_v2 = os.environ.get("TOKEN")
     #url = os.environ.get("URL")
