@@ -20,6 +20,8 @@ def createNotionTask(token, collectionURL, content):
 def create_todo():
     json_data = request.get_json()
     print(json_data)
+    print(json_data['name'])
+    print(json_data['age'])
     #todo = request.args.get('todo')
     #token_v2 = os.environ.get("TOKEN")
     #url = os.environ.get("URL")
