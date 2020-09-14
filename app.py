@@ -23,6 +23,7 @@ def create_todo():
     print(json_data)
     print(json_data['name'])
     print(json_data['age'])
+    print(json_data['pippo'])
     #todo = request.args.get('todo')
     token_v2 = os.environ.get("TOKEN")
     url = os.environ.get("URL")
