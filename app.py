@@ -19,11 +19,11 @@ def createNotionTask(token, collectionURL, content):
 @app.route('/create_todo', methods=['GET'])
 def create_todo():
 
-    todo = request.args.get('todo')
-    token_v2 = os.environ.get("TOKEN")
-    url = os.environ.get("URL")
-    createNotionTask(token_v2, url, todo)
-    return f'added {todo} to Notion'
+    #todo = request.args.get('todo')
+    #token_v2 = os.environ.get("TOKEN")
+    #url = os.environ.get("URL")
+    #createNotionTask(token_v2, url, todo)
+    return f'Juri to PRINTS'
 
 
 if __name__ == '__main__':
