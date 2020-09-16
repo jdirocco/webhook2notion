@@ -13,24 +13,19 @@ def createNotionTask(token, collectionURL, content):
     client = NotionClient(token)
     cv = client.get_collection_view(collectionURL)
     row = cv.collection.add_row()
-    row.Name = content['name']
-    row.juri = str(content['age'])
+    
+    row.Name = content['Name']
+    row.juri = content['juri']
+    row.Property = content['Property']
 
 
 @app.route('/create_todo', methods=['POST'])
 def create_todo():
     json_data = request.get_json()
-    print(json_data)
-    print(json_data['name'])
-    print(json_data['age'])
-    print(json_data['pippo'])
-    #todo = request.args.get('todo')
     token_v2 = os.environ.get("TOKEN")
     url = os.environ.get("URL")
-    print(token_v2)
-    print(url)
     createNotionTask(token_v2, url, json_data)
-    return f'Juri to PRINTS'
+    return f'OK'
 
 
 if __name__ == '__main__':
