@@ -17,6 +17,7 @@ def createNotionTask(token, collectionURL, content):
     row.Name = content['Name']
     row.juri = content['juri']
     row.Property = content['Property']
+    row.Tag = "TASK"
 
 
 @app.route('/create_todo', methods=['POST'])
