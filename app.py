@@ -36,9 +36,7 @@ def add_entry_into_table(token, collectionURL, content):
             
 			# checkbox
 			if property['type'] == "checkbox":
-                row.set_property(property['name'],
-                                 content[property['name']].lower() in ['true', '1', 't', 'y', 'yes', 'yeah', 'yup',
-                                                                 'certainly', 'uh-huh'])
+                row.set_property(property['name'],content[property['name']].lower() in ['true', '1', 't', 'y', 'yes', 'yeah', 'yup','certainly', 'uh-huh'])
             # file ?
 			if property['type'] == "file":
                 # Change the property
