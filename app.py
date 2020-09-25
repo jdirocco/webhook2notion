@@ -18,46 +18,40 @@ def add_entry_into_table(token, collectionURL, content):
     for property in cv.collection.get_schema_properties():
         if property['name'] in content.keys():
 
-			# text, title
+            # text, title
             if property['type'] in ["text", "title"]:
                 row.set_property(property['name'], content[property['name']])
 
-			# multi_select
+            # multi_select
             if property['type'] == "multi_select":
                 row.set_property(property['name'], [content[property['name']]])
 
-            # select - the property option must be already defined (consequently try/except is used - to catch undefined option errors)
+
             if property['type'] == "select":
                 try:
                     row.set_property(property['name'], content[property['name']])
                 except:
-					# to be done: log error
                     print("{} is not a valid option".format(str(content[property['name']])))
-            
-			# checkbox
-			if property['type'] == "checkbox":
+            if property['type'] == "checkbox":
                 row.set_property(property['name'],content[property['name']].lower() in ['true', '1', 't', 'y', 'yes', 'yeah', 'yup','certainly', 'uh-huh'])
-            # file ?
-			if property['type'] == "file":
-                # Change the property
-                row.set_property(property['name'], content[property['name']])
-            
-			# person ?		
-			if property['type'] == "person":
+            if property['type'] == "file":
                 # Change the property
                 row.set_property(property['name'], content[property['name']])
 
-			# date ?
+            # person ?
+            if property['type'] == "person":
+                # Change the property
+                row.set_property(property['name'], content[property['name']])
+            # date ?
             if property['type'] == "date":
                 # Change the property
                 row.set_property(property['name'], content[property['name']])
-
-			# number
-			if property['type'] == "number":
-				# Change the property
+            # number
+            if property['type'] == "number":
+                # Change the property
 				row.set_property(property['name'], content[property['name']])
-            
-			# missing types: url, email, phone
+
+            # missing types: url, email, phone
 
 
 
