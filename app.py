@@ -48,8 +48,7 @@ def add_entry_into_table(token, collectionURL, content):
                 row.set_property(property['name'], content[property['name']])
             # number
             if property['type'] == "number":
-                # Change the property
-				row.set_property(property['name'], content[property['name']])
+                row.set_property(property['name'], content[property['name']])
 
             # missing types: url, email, phone
 
