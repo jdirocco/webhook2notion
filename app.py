@@ -20,7 +20,6 @@ def add_entry_into_table(token, collectionURL, content):
             print("{} -> {}".format(property['name'], str(content[property['name']])))
             # text, title
             if property['type'] in ["text", "title"]:
-                print("{} -> {}".format(property['name'], str(content[property['name']])))
                 row.set_property(property['name'], content[property['name']])
 
             # multi_select
@@ -45,6 +44,7 @@ def add_entry_into_table(token, collectionURL, content):
                 row.set_property(property['name'], content[property['name']])
             # date ?
             if property['type'] == "date":
+                print("\t date {} -> {}".format(property['name'], str(content[property['name']])))
                 # Change the property
                 row.set_property(property['name'], content[property['name']])
             # number
