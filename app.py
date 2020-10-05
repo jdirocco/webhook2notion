@@ -17,10 +17,10 @@ def add_entry_into_table(token, collectionURL, content):
 
     for property in cv.collection.get_schema_properties():
         if property['name'] in content.keys():
-
+            print("{} -> {}".format(property['name'], str(content[property['name']])))
             # text, title
             if property['type'] in ["text", "title"]:
-                print("{} -> {}".format(property['name'], content[property['name']]))
+                print("{} -> {}".format(property['name'], str(content[property['name']])))
                 row.set_property(property['name'], content[property['name']])
 
             # multi_select
