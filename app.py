@@ -1,6 +1,7 @@
 
 import os
 from notion.client import NotionClient
+from notion.collection import NotionDate
 from flask import Flask
 from flask import request
 import datetime
@@ -55,7 +56,9 @@ def add_entry_into_table(token, collectionURL, content):
                                          date_value.strftime("%d"),
                                          date_value.strftime("%Y"))
                 print(date_string)
-                row.set_property(property['name'], date_string)
+                date_notion = NotionDate(date_value)
+                print (date_notion)
+                row.set_property(property['name'], date_notion)
             # number
             if property['type'] == "number":
                 row.set_property(property['name'], content[property['name']])
