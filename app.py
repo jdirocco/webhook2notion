@@ -3,10 +3,14 @@ import os
 from notion.client import NotionClient
 from flask import Flask
 from flask import request
-
+import datetime
+import re
 
 app = Flask(__name__)
 
+def convert_to_date(data_string):
+    x = re.match("(\d\d\d\d)-(\d\d)-(\d\d)", data_string)
+    return datetime.datetime(int(x.group(1)), int(x.group(2)), int(x.group(3)))
 
 def add_entry_into_table(token, collectionURL, content):
     # notion
@@ -46,6 +50,7 @@ def add_entry_into_table(token, collectionURL, content):
             if property['type'] == "date":
                 print("\t date {} -> {}".format(property['name'], str(content[property['name']])))
                 # Change the property
+                print(convert_to_date(content[property['name']]))
                 row.set_property(property['name'], content[property['name']])
             # number
             if property['type'] == "number":
