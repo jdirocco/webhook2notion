@@ -53,7 +53,7 @@ def add_entry_into_table(token, collectionURL, content):
                 date_value = convert_to_date(content[property['name']])
                 date_string = "{} {}, {}".format(date_value.strftime("%b"),
                                          date_value.strftime("%d"),
-                                         date_value.strftime("%d"))
+                                         date_value.strftime("%Y"))
                 print(date_string)
                 row.set_property(property['name'], date_string)
             # number
