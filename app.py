@@ -50,8 +50,12 @@ def add_entry_into_table(token, collectionURL, content):
             if property['type'] == "date":
                 print("\t date {} -> {}".format(property['name'], str(content[property['name']])))
                 # Change the property
-                print(convert_to_date(content[property['name']]))
-                row.set_property(property['name'], content[property['name']])
+                date_value = convert_to_date(content[property['name']])
+                date_string = "{} {}, {}".format(date_value.strftime("%b"),
+                                         date_value.strftime("%d"),
+                                         date_value.strftime("%d"))
+                print(date_string)
+                row.set_property(property['name'], date_string)
             # number
             if property['type'] == "number":
                 row.set_property(property['name'], content[property['name']])
