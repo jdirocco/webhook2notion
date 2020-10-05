@@ -20,6 +20,7 @@ def add_entry_into_table(token, collectionURL, content):
 
             # text, title
             if property['type'] in ["text", "title"]:
+                print("{} -> {}".format(property['name'], content[property['name']]))
                 row.set_property(property['name'], content[property['name']])
 
             # multi_select
