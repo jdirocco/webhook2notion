@@ -47,23 +47,18 @@ def add_entry_into_table(token, collectionURL, content):
             if property['type'] == "person":
                 # Change the property
                 row.set_property(property['name'], content[property['name']])
-            # date ?
-            if property['type'] == "date":
-                print("\t date {} -> {}".format(property['name'], str(content[property['name']])))
-                # Change the property
-                date_value = convert_to_date(content[property['name']])
-                date_string = "{} {}, {}".format(date_value.strftime("%b"),
-                                         date_value.strftime("%d"),
-                                         date_value.strftime("%Y"))
-                print(date_string)
-                date_notion = NotionDate(date_value)
-                print (date_notion)
-                row.set_property(property['name'], date_notion)
-            # number
             if property['type'] == "number":
                 row.set_property(property['name'], content[property['name']])
-
             # missing types: url, email, phone
+        if property['type'] == "date":
+            print("ci entro 1")
+            if property['name'] + "___start" in content.keys() and property['name'] + "___end" in content.keys():
+                print("ci entro 2")
+                date_start_value = convert_to_date(content[property['name'] + "___start"])
+                date_end_value = convert_to_date(content[property['name'] + "___end"])
+                print ("start: {} end: {}".format(date_start_value, date_end_value))
+                date_notion = NotionDate(date_start_value, date_end_value)
+                row.set_property(property['name'], date_notion)
 
 
 
