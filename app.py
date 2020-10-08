@@ -10,8 +10,8 @@ import re
 app = Flask(__name__)
 
 def convert_to_date(data_string):
-    x = re.match("(\d\d\d\d)-(\d\d)-(\d\d)", data_string)
-    return datetime.datetime(int(x.group(1)), int(x.group(2)), int(x.group(3)))
+    x = re.match("(\d\d\d\d)-(\d\d)-(\d\d)T(\d\d):(\d\d)", data_string)
+    return datetime.datetime(int(x.group(1)), int(x.group(2)), int(x.group(3)), int(x.group(4)), int(x.group(5)))
 
 def add_entry_into_table(token, collectionURL, content):
     # notion
@@ -51,9 +51,7 @@ def add_entry_into_table(token, collectionURL, content):
                 row.set_property(property['name'], content[property['name']])
             # missing types: url, email, phone
         if property['type'] == "date":
-            print("ci entro 1")
             if property['name'] + "___start" in content.keys() and property['name'] + "___end" in content.keys():
-                print("ci entro 2")
                 date_start_value = convert_to_date(content[property['name'] + "___start"])
                 date_end_value = convert_to_date(content[property['name'] + "___end"])
                 print ("start: {} end: {}".format(date_start_value, date_end_value))
