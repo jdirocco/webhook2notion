@@ -51,11 +51,16 @@ def add_entry_into_table(token, collectionURL, content):
                 row.set_property(property['name'], content[property['name']])
             # missing types: url, email, phone
         if property['type'] == "date":
-            if property['name'] + "___start" in content.keys() and property['name'] + "___end" in content.keys():
+            # if property['name'] + "___start" in content.keys() and property['name'] + "___daily" in content.keys():
+            #     print(content[property['name'] + "___daily"])
+            #     date_start_value = convert_to_date(content[property['name'] + "___start"])
+            #     date_notion = NotionDate(date_start_value, reminder = date_start_value)
+            #     row.set_property(property['name'], date_notion)
+            if property['name'] + "___start" in content.keys() and property['name'] + "___end" in content.keys() and not property['name'] + "___daily" in content.keys():
                 date_start_value = convert_to_date(content[property['name'] + "___start"])
                 date_end_value = convert_to_date(content[property['name'] + "___end"])
                 print ("start: {} end: {}".format(date_start_value, date_end_value))
-                date_notion = NotionDate(date_start_value, date_end_value)
+                date_notion = NotionDate(date_start_value, date_end_value, reminder = date_start_value)
                 row.set_property(property['name'], date_notion)
 
 
