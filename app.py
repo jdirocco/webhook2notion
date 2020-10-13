@@ -22,7 +22,6 @@ def add_entry_into_table(token, collectionURL, content):
 
     for property in cv.collection.get_schema_properties():
         if property['name'] in content.keys():
-            print("{} -> {}".format(property['name'], str(content[property['name']])))
             # text, title
             if property['type'] in ["text", "title"]:
                 row.set_property(property['name'], content[property['name']])
@@ -51,14 +50,14 @@ def add_entry_into_table(token, collectionURL, content):
                 row.set_property(property['name'], content[property['name']])
             # missing types: url, email, phone
         if property['type'] == "date":
-
-            if property['name'] + "___start" in content.keys() and property['name'] + "___daily" in content.keys() and content[property['name'] + "___daily"] == "true":
+            print("DEBUG")
+            if property['name'] + "___start" in content.keys() and property['name'] + "___daily" in content.keys() and content[property['name'] + "___daily"] == True:
                 print("Secco daily")
                 date_start_value = convert_to_date(content[property['name'] + "___start"])
                 date_notion = NotionDate(datetime.datetime(date_start_value.year, date_start_value.month, date_start_value.day))
                 row.set_property(property['name'], date_notion)
             if property['name'] + "___start" in content.keys() and not property['name'] + "___end" and (not property['name'] + "___daily" in content.keys() or
-                    content[property['name'] + "___daily"] == "false"):
+                    content[property['name'] + "___daily"] == False):
                 print("Secco no daily")
                 date_start_value = convert_to_date(content[property['name'] + "___start"])
                 date_notion = NotionDate(date_start_value)
@@ -74,7 +73,7 @@ def add_entry_into_table(token, collectionURL, content):
             #     date_notion = NotionDate(date_start_value)
             #     row.set_property(property['name'], date_notion)
             if property['name'] + "___start" in content.keys() and property['name'] + "___end" in content.keys() and (not property['name'] + "___daily" in content.keys() or
-                    content[property['name'] + "___daily"] == "false"):
+                    content[property['name'] + "___daily"] == False):
                 print("intervallo")
                 date_start_value = convert_to_date(content[property['name'] + "___start"])
                 date_end_value = convert_to_date(content[property['name'] + "___end"])
