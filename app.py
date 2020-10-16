@@ -14,7 +14,7 @@ app = Flask(__name__)
 def convert_to_date(data_string):
     x = re.match("(\d\d\d\d)-(\d\d)-(\d\d)T(\d\d):(\d\d)", data_string)
     utc = pytz.timezone('UTC')
-    return datetime.datetime(int(x.group(1)), int(x.group(2)), int(x.group(3)), int(x.group(4)), int(x.group(5)),0, utc)
+    return datetime.datetime(int(x.group(1)), int(x.group(2)), int(x.group(3)), int(x.group(4)), int(x.group(5)), 0,0, utc)
 
 def add_entry_into_table(token, collectionURL, content):
     # notion
