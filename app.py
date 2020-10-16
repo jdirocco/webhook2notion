@@ -51,17 +51,18 @@ def add_entry_into_table(token, collectionURL, content):
                 row.set_property(property['name'], content[property['name']])
             # missing types: url, email, phone
         if property['type'] == "date":
+            rome =pytz.timezone('Europe/Rome')
             if property['name'] + "___start" in content.keys() and property['name'] + "___daily" in content.keys() and content[property['name'] + "___daily"] == True:
                 print("Secco daily")
                 date_start_value = convert_to_date(content[property['name'] + "___start"])
-                date_notion = NotionDate(datetime.datetime(date_start_value.year, date_start_value.month, date_start_value.day, 0, 0, 0, 0, pytz.timezone('UTC')).astimezone('Europe/Rome'), timezone=pytz.timezone('Europe/Rome'))
+                date_notion = NotionDate(datetime.datetime(date_start_value.year, date_start_value.month, date_start_value.day, 0, 0, 0, 0, pytz.timezone('UTC')).astimezone(rome), timezone=rome)
                 row.set_property(property['name'], date_notion)
             elif property['name'] + "___start" in content.keys() and not property['name'] + "___end" and (not property['name'] + "___daily" in content.keys() or
                     content[property['name'] + "___daily"] == False):
                 print("Secco no daily")
                 date_start_value = convert_to_date(content[property['name'] + "___start"])
 
-                date_notion = NotionDate(date_start_value.astimezone('Europe/Rome'), timezone=pytz.timezone('Europe/Rome'))
+                date_notion = NotionDate(date_start_value.astimezone(rome), timezone=rome)
                 row.set_property(property['name'], date_notion)
             elif property['name'] + "___start" in content.keys() and property['name'] + "___end" in content.keys() and (not property['name'] + "___daily" in content.keys() or
                     content[property['name'] + "___daily"] == False):
@@ -69,12 +70,12 @@ def add_entry_into_table(token, collectionURL, content):
                 datetime.timezone
                 date_start_value = convert_to_date(content[property['name'] + "___start"])
                 date_end_value = convert_to_date(content[property['name'] + "___end"])
-                date_notion = NotionDate(date_start_value.astimezone('Europe/Rome'), date_end_value.astimezone('Europe/Rome'), timezone=pytz.timezone('Europe/Rome'))
+                date_notion = NotionDate(date_start_value.astimezone(rome), date_end_value.astimezone(rome), timezone=rome)
                 row.set_property(property['name'], date_notion)
             elif property['name'] + "___start" in content.keys():
                 print("Secco no daily")
                 date_start_value = convert_to_date(content[property['name'] + "___start"])
-                date_notion = NotionDate(date_start_value.astimezone('Europe/Rome'), timezone=pytz.timezone('Europe/Rome'))
+                date_notion = NotionDate(date_start_value.astimezone(rome), timezone=rome)
                 row.set_property(property['name'], date_notion)
     if ("Name" in content.keys()):
         print("ECCOMI")
