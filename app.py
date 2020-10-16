@@ -80,7 +80,7 @@ def add_entry_into_table(token, collectionURL, content):
         value = content["Name"].split(":")
         print(value)
         if len(value)>1:
-            if value[0].isUpper():
+            if value[0].isupper():
                 row.set_property(property['Type'], value[0])
                 row.set_property(property['Name'], ":".join(value[1:]))
 
