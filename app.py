@@ -54,7 +54,7 @@ def add_entry_into_table(token, collectionURL, content):
             if property['name'] + "___start" in content.keys() and property['name'] + "___daily" in content.keys() and content[property['name'] + "___daily"] == True:
                 print("Secco daily")
                 date_start_value = convert_to_date(content[property['name'] + "___start"])
-                date_notion = NotionDate(datetime.datetime(date_start_value.year, date_start_value.month, date_start_value.day, 0, 0, 0, pytz.timezone('UTC')).astimezone('Europe/Rome'), timezone=pytz.timezone('Europe/Rome'))
+                date_notion = NotionDate(datetime.datetime(date_start_value.year, date_start_value.month, date_start_value.day, 0, 0, 0, 0, pytz.timezone('UTC')).astimezone('Europe/Rome'), timezone=pytz.timezone('Europe/Rome'))
                 row.set_property(property['name'], date_notion)
             elif property['name'] + "___start" in content.keys() and not property['name'] + "___end" and (not property['name'] + "___daily" in content.keys() or
                     content[property['name'] + "___daily"] == False):
