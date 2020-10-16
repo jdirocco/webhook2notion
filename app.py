@@ -82,7 +82,7 @@ def add_entry_into_table(token, collectionURL, content):
         if len(value)>1:
             if value[0].isUpper():
                 row.set_property(property['Type'], value[0])
-                row.set_property(property['Name'], ":".join(value[1:])
+                row.set_property(property['Name'], ":".join(value[1:]))
 
 @app.route('/add_entry', methods=['POST'])
 def add_entry():
