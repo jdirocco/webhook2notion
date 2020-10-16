@@ -75,7 +75,7 @@ def add_entry_into_table(token, collectionURL, content):
                 date_start_value = convert_to_date(content[property['name'] + "___start"])
                 date_notion = NotionDate(date_start_value, timezone=pytz.timezone('Europe/Rome'))
                 row.set_property(property['name'], date_notion)
-    if ("Name" in content.keys):
+    if ("Name" in content.keys()):
         print("ECCOMI")
         value = content["Name"].split(":")
         print(value)
