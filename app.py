@@ -81,7 +81,10 @@ def add_entry_into_table(token, collectionURL, content):
         print(value)
         if len(value)>1:
             if value[0].isupper():
-                row.set_property('Tyoe', value[0])
+                try:
+                    row.set_property('Type', value[0])
+                except:
+                    print("{} is not a valid option".format(str(content['Type'])))
                 row.set_property('Name', ":".join(value[1:]))
 
 @app.route('/add_entry', methods=['POST'])
