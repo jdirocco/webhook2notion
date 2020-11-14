@@ -16,29 +16,42 @@ def convert_to_date(data_string):
     utc = pytz.timezone('UTC')
     return datetime.datetime(int(x.group(1)), int(x.group(2)), int(x.group(3)), int(x.group(4)), int(x.group(5)), 0,0, utc)
 
-def del_entry_into_table(token, collectionURL, content):
-    # notion
-    print(content)
+
+def get_existing_row (id_row):
     client = NotionClient(token)
     cv = client.get_collection_view(collectionURL)
     row_to_delete = None
     for row in cv.collection.get_rows():
-        if row.ID == content:
-            row_to_delete = row
-            break
-    if row_to_delete != None:
-        row_to_delete.remove(permanently=False)
-        return 'OK'
-    else: return 'KO'
+        if row.ID == id_row:
+            return row
+    return None
 
+
+def del_entry_into_table(token, collectionURL, content):
+    # notion
+    row_to_delete = get_existing_row(content)
+    if row_to_delete != None:
+        row_to_delete.remove()
+        return 'OK'
+    else:
+        return 'KO'
 
 def add_entry_into_table(token, collectionURL, content):
-    # notion
     print(content)
     client = NotionClient(token)
     cv = client.get_collection_view(collectionURL)
-
     row = cv.collection.add_row()
+    set_row(row, content)
+
+def upd_entry_into_table(token, collectionURL, content, id_row):
+    print(content)
+    client = NotionClient(token)
+    cv = client.get_collection_view(collectionURL)
+    row = get_existing_row(id_row)
+    set_row(row, content)
+
+def set_row(row, content):
+    # notion
     for property in cv.collection.get_schema_properties():
         if property['name'] in content.keys():
             # text, title
@@ -105,7 +118,7 @@ def add_entry_into_table(token, collectionURL, content):
                     print("{} is not a valid option".format(str(content['Type'])))
                 row.set_property('Name', ":".join(value[1:]))
 
-@app.route('/add_entry', methods=['POST'])
+@app.route('/entry', methods=['POST'])
 def add_entry():
     json_data = request.get_json()
     token_v2 = os.environ.get("TOKEN")
@@ -113,7 +126,7 @@ def add_entry():
     add_entry_into_table(token_v2, url, json_data)
     return f'OK'
 
-@app.route('/add_entry/<id_row>', methods=['DELETE'])
+@app.route('/entry/<id_row>', methods=['DELETE'])
 def del_entry(id_row):
     json_data = request.get_json()
     token_v2 = os.environ.get("TOKEN")
@@ -124,6 +137,14 @@ def del_entry(id_row):
     else:
         print('OK')
         return f'KO'
+
+@app.route('/entry', methods=['POST'])
+def upd_entry():
+    json_data = request.get_json()
+    token_v2 = os.environ.get("TOKEN")
+    url = os.environ.get("URL")
+    upd_entry_into_table(token_v2, url, json_data)
+    return f'OK'
 
 
 if __name__ == '__main__':
